@@ -3,11 +3,13 @@
     <CLASSES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-java8/5.0.1.Final/40558824507b0500e2a346987e41333ad419b2af/hibernate-java8-5.0.1.Final.jar!/" />
       <root url="jar://E:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-java8/5.0.1.Final/40558824507b0500e2a346987e41333ad419b2af/hibernate-java8-5.0.1.Final.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-java8/5.0.1.Final/40558824507b0500e2a346987e41333ad419b2af/hibernate-java8-5.0.1.Final.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-java8/5.0.1.Final/e4c594109a349c74fc3af462ad8dacaeaea5a665/hibernate-java8-5.0.1.Final-sources.jar!/" />
       <root url="jar://E:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-java8/5.0.1.Final/e4c594109a349c74fc3af462ad8dacaeaea5a665/hibernate-java8-5.0.1.Final-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-java8/5.0.1.Final/e4c594109a349c74fc3af462ad8dacaeaea5a665/hibernate-java8-5.0.1.Final-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

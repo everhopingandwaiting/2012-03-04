@@ -3,24 +3,32 @@ package qa.service;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import qa.dao.WordsDao;
 import qa.domain.Question;
 import qa.domain.Vote;
+import qa.domain.Words;
 
 @Aspect
 public class PointsService {
-    //Spring AOP (Aspect Oriented Programming)
-    @Pointcut("bean(questionService) && execution(* plusOneVote(..))")
+    private WordsDao wordsDao;
+
+    public PointsService(WordsDao wordsDao) {
+        this.wordsDao = wordsDao;
+    }
+
+    @Pointcut("bean(voteService) && execution(* addOneVote(..))")
     private void voteUp() {
         //Empty.
     }
 
-    @AfterReturning(value = "voteUp() && target(service) && args(*, vote)", returning = "question")
-    public void afterVoteUp(QuestionService service, Question question, Vote vote) {
+    @AfterReturning(value = "voteUp() && target(service)", returning = "vote")
+    public void afterVoteUp(VoteService service, Vote vote) {
+        Words words = vote.getWords();
         if (vote.isUpVoted()) {
-            question.addPoint(10); //TODO hard code
+            words.addPoint(10); //TODO hard code
         } else {
-            question.minusPoint(10);
+            words.minusPoint(10);
         }
-        service.updateInfo(question);
+        wordsDao.update(words);
     }
 }

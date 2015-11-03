@@ -15,17 +15,15 @@ public class Vote implements Serializable {
     private QaUser whoVoted;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "QUESTION_ID", nullable = false)
-    private Question question;
+    @JoinTable(name = "WORDS_VOTES",
+            joinColumns = @JoinColumn(name = "VOTE_ID", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "WORDS_ID", nullable = false))
+    private Words words;
 
     private boolean upVoted;
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
     }
 
     public void setWhoVoted(QaUser whoVoted) {
@@ -40,15 +38,19 @@ public class Vote implements Serializable {
         return whoVoted;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
-
     public void setUpVoted(boolean upVoted) {
         this.upVoted = upVoted;
     }
 
     public boolean isUpVoted() {
         return upVoted;
+    }
+
+    public void setWords(Words words) {
+        this.words = words;
+    }
+
+    public Words getWords() {
+        return words;
     }
 }

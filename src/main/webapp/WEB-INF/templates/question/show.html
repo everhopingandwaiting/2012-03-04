@@ -10,10 +10,12 @@
     <title th:text="*{title}">Question Title</title>
     <link href="../../../css/bootstrap.css"
           th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../../../css/editor.css"
+          th:href="@{/css/editor.css}" rel="stylesheet"/>
 </head>
 <body>
 <div th:include="fragments :: navbar"></div>
-<div class="container-fluid">
+<div class="container-fluid" style="margin: 0 15px;">
     <div th:include="fragments :: toolbar"></div>
     <div class="row" style="font-size: x-large; border-bottom: 1px solid lightgray;" th:text="*{title}">Question Title
     </div>
@@ -22,33 +24,111 @@
             <div class="row">
                 <div class="col-md-1 text-center">
                     <div class="row">
-                        <a style="color: black; cursor: pointer;" data-name="voteup" th:value="*{id}"><span
+                        <a style="color: #777777; cursor: pointer;" data-name="voteup_question" th:value="*{id}"><span
                                 style="font-size: xx-large;" class="glyphicon glyphicon-triangle-top"
                                 aria-hidden="true"></span></a>
                     </div>
                     <div class="row">
-                        <span style="font-size: xx-large;" th:text="*{voteCount}" data-name="voteCountSpan">0</span>
+                        <span style="color: #777777; font-size: xx-large;" th:text="*{voteCount}"
+                              data-name="voteCountSpan">0</span>
                     </div>
                     <div class="row">
-                        <a data-name="votedown" th:value="*{id}" style="color: black; cursor: pointer;">
+                        <a data-name="votedown_question" th:value="*{id}" style="color: #777777; cursor: pointer;">
                             <span style="font-size: xx-large;"
                                   class="glyphicon glyphicon-triangle-bottom"
                                   aria-hidden="true"></span></a>
                     </div>
                 </div>
-                <div class="col-md-11">
+                <div class="col-md-11" style="margin-top: 10px;">
                     <div class="row" data-name="content" th:text="*{content}">question content</div>
                     <div class="row" th:text="*{tags}"></div>
                     <div class="row">
                         <div class="pull-right" style="background-color: lightcyan; padding: 5px;">
                             <div>asked <span th:text="*{{whenCreated}}">1m ago</span></div>
-                            <div><span th:text="*{whoCreated.name}">username</span> <span th:text="*{whoCreated.reputation}">30</span></div>
+                            <div><span th:text="*{whoCreated.name}">username</span> <span
+                                    th:text="*{whoCreated.reputation}">30</span></div>
                         </div>
                     </div>
                     <div class="row">
                         <a style="cursor: pointer; text-decoration: none;">add comment</a>
                     </div>
                 </div>
+            </div>
+            <div class="row" th:if="*{answers.isEmpty() == false}">
+                <div class="lead" style="border-bottom: 1px solid lightgray;">
+                    <span style="font-size: x-large;"><span th:text="*{answers.size()}">0</span> Answers</span>
+                </div>
+            </div>
+            <div class="row" th:each="answer : ${question.answers}" th:object="${answer}"
+                 style="margin-bottom: 10px; border-bottom: 1px solid lightgray;">
+                <div class="col-md-1 text-center">
+                    <div class="row">
+                        <a data-name="voteup_answer" th:value="*{id}" style="color: #777777; cursor: pointer;"><span
+                                style="font-size: xx-large;" class="glyphicon glyphicon-triangle-top"
+                                aria-hidden="true"></span></a>
+                    </div>
+                    <div class="row">
+                        <span data-name="voteCount_answer" style="color: #777777; font-size: xx-large;"
+                              th:text="*{voteCount}">0</span>
+                    </div>
+                    <div class="row">
+                        <a data-name="votedown_answer" th:value="*{id}" style="color: #777777; cursor: pointer;">
+                            <span style="font-size: xx-large;"
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                  aria-hidden="true">
+                            </span>
+                        </a>
+                    </div>
+                    <div class="row" th:if="*{accepted}">
+                        <span style="color: darkgreen; font-size: xx-large;"
+                              class="glyphicon glyphicon-ok"
+                              aria-hidden="true">
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <div class="row" data-name="content" th:text="*{content}" style="margin-bottom: 10px;">
+                        Answer Content
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="pull-right" style="background-color: lightcyan; padding: 5px;">
+                            <div>answered <span th:text="*{{whenCreated}}">1m ago</span></div>
+                            <div><span th:text="*{whoCreated.name}">user</span>
+                                <span title="reputation score" th:text="*{whoCreated.getReputation()}">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 10px;">
+                        <a style="text-decoration: none; cursor: pointer;">add a comment</a>
+                    </div>
+                </div>
+            </div>
+
+            <!--Post Answer Form-->
+            <div class="row" style="margin-top: 10px;">
+                <form method="post" action="../question/show.html"
+                      th:action="@{/answer/question/{id}(id=${question.id})}" class="form-horizontal"
+                      th:object="${emptyanswer}">
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-11">
+                            <label class="control-label" style="font-size: larger;">Your Answer</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-11">
+                            <div id="wmd-button-bar"></div>
+                            <textarea class="form-control" id="wmd-input" rows="10" style="margin-bottom: 10px;"
+                                      th:field="*{content}"></textarea>
+
+                            <div id="wmd-preview" class="wmd-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-1 col-md-11">
+                            <button type="submit" class="btn btn-primary">Post Your Answer</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="col-md-2">
@@ -64,10 +144,23 @@
 <div th:include="fragments :: scripts"></div>
 <script src="../../../js/pagedown/Markdown.Converter.js" th:src="@{/js/pagedown/Markdown.Converter.js}"></script>
 <script src="../../../js/pagedown/Markdown.Sanitizer.js" th:src="@{/js/pagedown/Markdown.Sanitizer.js}"></script>
+<script src="../../../js/pagedown/Markdown.Editor.js" th:src="@{/js/pagedown/Markdown.Editor.js}"></script>
 <script>
     var converter = new Markdown.Converter();
-    var content = $("div[data-name='content']").text();
-    $("div[data-name='content']").html(converter.makeHtml(content));
+    converter.hooks.chain("preBlockGamut", function (text, rbg) {
+        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+        });
+    });
+
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+
+    $("div[data-name='content']").each(function () {
+        var content = $(this).text();
+        $(this).html(converter.makeHtml(content));
+    });
+
 </script>
 </body>
 </html>

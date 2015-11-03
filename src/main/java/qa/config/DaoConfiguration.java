@@ -4,10 +4,7 @@ import org.h2.engine.Session;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -17,9 +14,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import qa.dao.QuestionDao;
-import qa.dao.UserDao;
-import qa.dao.VoteDao;
+import qa.dao.*;
 
 import javax.sql.DataSource;
 
@@ -31,11 +26,6 @@ public class DaoConfiguration {
     private Environment environment;
 
     @Bean
-    public QuestionDao questionDao(HibernateTemplate template) {
-        return new QuestionDao(template);
-    }
-
-    @Bean
     public UserDao userDao(HibernateTemplate template) {
         return new UserDao(template);
     }
@@ -43,6 +33,11 @@ public class DaoConfiguration {
     @Bean
     public VoteDao voteDao(HibernateTemplate template) {
         return new VoteDao(template);
+    }
+
+    @Bean
+    public WordsDao wordsDao(HibernateTemplate template) {
+        return new WordsDao(template);
     }
 
     @Bean
@@ -62,7 +57,8 @@ public class DaoConfiguration {
 
     @Bean
     @Profile("prod")
-    public DataSource prodDataSource() {
+    @Primary
+    public DataSource prodDataSource() { //TODO replace DriverManagerDataSource to support connection pool etc.
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(environment.getProperty("datasource.url"));
         dataSource.setDriverClassName(environment.getProperty("datasource.driver"));

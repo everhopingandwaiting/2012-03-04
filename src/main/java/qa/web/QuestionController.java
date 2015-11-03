@@ -2,17 +2,18 @@ package qa.web;
 
 import com.sun.javafx.scene.control.skin.VirtualFlow;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import qa.domain.QaUser;
-import qa.domain.Question;
-import qa.domain.Vote;
+import qa.domain.*;
 import qa.service.QuestionService;
 import qa.service.UserService;
 import qa.service.VoteService;
+import qa.service.WordsService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,10 +32,18 @@ public class QuestionController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private WordsService wordsService;
+
+    @ModelAttribute("emptyanswer")
+    public Answer emptyAnswer() {
+        return new Answer();
+    }
+
     @ModelAttribute("questions")
     @RequestMapping(value = "/questions", method = RequestMethod.GET)
     public List<Question> topQuestions() {
-        return questionService.findAll();
+        return wordsService.findAll(Question.class);
     }
 
     @ModelAttribute("question")
@@ -53,13 +62,13 @@ public class QuestionController {
 
         question.setWhenCreated(Instant.now());
         question.setWhoCreated(userService.find(request.getRemoteUser()));
-        questionService.addOneQuestion(question);
+        wordsService.addOne(question);
         return "redirect:/questions";
     }
 
     @RequestMapping(value = "/question/{id}", method = RequestMethod.GET)
     public String showQuestion(@PathVariable("id") int id, Model model, HttpSession session) {
-        Question question = questionService.find(id);
+        Question question = wordsService.find(id, Question.class);
 
         List<String> pages = (List<String>) session.getAttribute("visitedPages");
         if (pages == null) {
@@ -67,10 +76,8 @@ public class QuestionController {
         }
 
         String currentUrl = "/question/" + id;
-        if (pages.stream().filter(page -> page.endsWith(currentUrl)).count() == 0) {
-            int viewCount = question.getViewCount();
-            question.setViewCount(++viewCount);
-            questionService.updateInfo(question);
+        if (pages.stream().anyMatch(page -> page.endsWith(currentUrl))) {
+            questionService.plusOneView(question);
 
             pages.add(currentUrl);
             session.setAttribute("visitedPages", pages);
@@ -78,31 +85,5 @@ public class QuestionController {
 
         model.addAttribute("question", question);
         return "question/show";
-    }
-
-    @RequestMapping(value = "/question/{id}/voteup", method = RequestMethod.POST)
-    @ResponseBody
-    public int voteup(@PathVariable("id") int id, HttpServletRequest request) {
-        Question question = questionService.find(id);
-
-        Vote vote = new Vote();
-        vote.setWhoVoted(userService.find(request.getRemoteUser()));
-        vote.setQuestion(question);
-        vote.setUpVoted(true);
-
-        return questionService.plusOneVote(question, vote).getVoteCount();
-    }
-
-    @RequestMapping(value = "/question/{id}/votedown", method = RequestMethod.POST)
-    @ResponseBody
-    public int votedown(@PathVariable("id") int id, HttpServletRequest request) {
-        Question question = questionService.find(id);
-
-        Vote vote = new Vote();
-        vote.setWhoVoted(userService.find(request.getRemoteUser()));
-        vote.setQuestion(question);
-        vote.setUpVoted(false);
-
-        return questionService.plusOneVote(question, vote).getVoteCount();
     }
 }

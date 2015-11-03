@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "USERS")
@@ -21,7 +22,7 @@ public class QaUser implements Serializable {
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "whoCreated")
-    private Set<Question> questions;
+    private Set<Words> words;
 
     public int getId() {
         return id;
@@ -47,23 +48,31 @@ public class QaUser implements Serializable {
         this.password = password;
     }
 
-    public void setQuestions(Set<Question> questions) {
-        this.questions = questions;
+    public void setQuestions(Set<Words> words) {
+        this.words = words;
     }
 
-    public Set<Question> getQuestions() {
-        return questions;
+    public Set<Words> getWords() {
+        return words;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof QaUser) {
-            return ((QaUser)obj).name.equals(this.name);
+        if (obj instanceof QaUser) {
+            return ((QaUser) obj).name.equals(this.name);
         }
         return false;
     }
 
+    public Set<Words> getQuestions() {
+        return words.stream().filter(w -> w instanceof Question).collect(Collectors.toSet());
+    }
+
+    public Set<Words> getAnswers() {
+        return words.stream().filter(w -> w instanceof Answer).collect(Collectors.toSet());
+    }
+
     public int getReputation() {
-        return questions.stream().mapToInt(question -> question.getPoints()).sum();
+        return words.stream().mapToInt(question -> question.getPoints()).sum();
     }
 }

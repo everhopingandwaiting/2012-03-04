@@ -3,11 +3,13 @@
     <CLASSES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.2/25c2196ddf53961b6dc862073187be51cb356fd3/jackson-databind-2.6.2.jar!/" />
       <root url="jar://E:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.2/25c2196ddf53961b6dc862073187be51cb356fd3/jackson-databind-2.6.2.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.2/25c2196ddf53961b6dc862073187be51cb356fd3/jackson-databind-2.6.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.2/458d035d015191120d4cd31a24b42bb5c1f4171d/jackson-databind-2.6.2-sources.jar!/" />
       <root url="jar://E:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.2/458d035d015191120d4cd31a24b42bb5c1f4171d/jackson-databind-2.6.2-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.6.2/458d035d015191120d4cd31a24b42bb5c1f4171d/jackson-databind-2.6.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

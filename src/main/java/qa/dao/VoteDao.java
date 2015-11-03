@@ -13,7 +13,6 @@ public class VoteDao {
     }
 
     public Vote persist(Vote vote) {
-        template.saveOrUpdate(vote);
-        return vote;
+        return template.merge(vote);
     }
 }

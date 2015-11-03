@@ -13,58 +13,26 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-//TODO 把answerCount替换为Answer对象
 @Entity
 @Table(name = "QUESTIONS")
-public class Question implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+@DiscriminatorValue("QUESTION")
+public class Question extends Words implements Serializable {
     @Size(min = 10, message = "{question.add.title.size}")
     @Column(nullable = false)
     private String title;
 
-    @Size(min = 50, message = "{question.add.content.size}")
-    @Lob
-    @Column(nullable = false)
-    private String content;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "questions")
+    private Set<Tag> tags;
 
-    @Type(type = "org.hibernate.type.InstantType")
-    @Column(nullable = false)
-    private Instant whenCreated;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private QaUser whoCreated;
-
-    private String tags;
-
-    @Column(nullable = false)
-    private int answerCount;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+    private Set<Answer> answers;
 
     @Column(nullable = false)
     private int viewCount;
 
-    private int points;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.PERSIST)
-    private Set<Vote> votes;
-
     public Question() {
-        answerCount = 0;
         viewCount = 0;
-        points = 0;
-        votes = new HashSet<>();
-        whenCreated = Instant.now();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        tags = new HashSet<>();
     }
 
     public String getTitle() {
@@ -75,48 +43,29 @@ public class Question implements Serializable {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Instant getWhenCreated() {
-        return whenCreated;
-    }
-
-    public void setWhenCreated(Instant whenCreated) {
-        this.whenCreated = whenCreated;
-    }
-
-    public QaUser getWhoCreated() {
-        return whoCreated;
-    }
-
-    public void setWhoCreated(QaUser whoCreated) {
-        this.whoCreated = whoCreated;
-    }
-
-    public String getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(String tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 
+    @Override
     public int getVoteCount() {
         return votes.stream().mapToInt(vote -> vote.isUpVoted() ? 1 : -1).sum();
     }
 
     public int getAnswerCount() {
-        return answerCount;
+        return answers.size();
     }
 
-    public void setAnswerCount(int answerCount) {
-        this.answerCount = answerCount;
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
+    }
+
+    public Set<Answer> getAnswers() {
+        return answers;
     }
 
     public int getViewCount() {
@@ -127,31 +76,4 @@ public class Question implements Serializable {
         this.viewCount = viewCount;
     }
 
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void addPoint(int point) {
-        this.points += point;
-    }
-
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
-    }
-
-    public void addVote(Vote vote) {
-        votes.add(vote);
-    }
-
-    public void minusPoint(int point) {
-        this.points -= point;
-    }
 }

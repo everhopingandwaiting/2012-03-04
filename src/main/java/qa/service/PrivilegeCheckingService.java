@@ -2,30 +2,31 @@ package qa.service;
 
 import qa.domain.QaUser;
 import qa.domain.Question;
+import qa.domain.Words;
 
 public class PrivilegeCheckingService {
-    private PrivilegeCheckingResult canVote(QaUser user, Question question) {
-        if (user == null || question == null) {
+    private PrivilegeCheckingResult canVote(QaUser user, Words words) {
+        if (user == null || words == null) {
             return PrivilegeCheckingResult.getNotPassedResult("user or question is null");
         }
 
-        if (question.getWhoCreated().equals(user)) {
-            return PrivilegeCheckingResult.getNotPassedResult("cannot voteup a question of yours.");
+        if (words.getWhoCreated().equals(user)) {
+            return PrivilegeCheckingResult.getNotPassedResult("cannot vote a words of yours.");
         }
 
-        if (question.getVotes().stream().filter(vote -> vote.getWhoVoted().equals(user)).count() > 0) {
-            return PrivilegeCheckingResult.getNotPassedResult("you cannot voteup a question more than one times.");
+        if (words.getVotes().stream().anyMatch(vote -> vote.getWhoVoted().equals(user))) {
+            return PrivilegeCheckingResult.getNotPassedResult("you cannot vote a words more than one times.");
         }
 
         return PrivilegeCheckingResult.getPassedResult();
     }
 
-    public PrivilegeCheckingResult canVoteup(QaUser user, Question question) {
-        return canVote(user, question);
+    public PrivilegeCheckingResult canVoteup(QaUser user, Words words) {
+        return canVote(user, words);
     }
 
-    public PrivilegeCheckingResult canVotedown(QaUser user, Question question) {
-        PrivilegeCheckingResult result = canVote(user, question);
+    public PrivilegeCheckingResult canVotedown(QaUser user, Words words) {
+        PrivilegeCheckingResult result = canVote(user, words);
         if(!result.isPassed()) {
             return result;
         }

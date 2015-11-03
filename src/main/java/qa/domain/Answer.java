@@ -1,24 +1,33 @@
 package qa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 
-//TODO: 完成Answer实体类相关的映射
 @Entity
 @Table(name = "ANSWERS")
-public class Answer implements Serializable {
-    @Id
-    private int id;
+@DiscriminatorValue("ANSWER")
+public class Answer extends Words implements Serializable {
+    @Column(nullable = false)
     private boolean accepted;
-    private Instant whenCreated;
-    private QaUser whoCreated;
-    private Set<Vote> votes;
-    private int points;
-    private String content;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "QUESTION_ID", nullable = false)
+    private Words question;
+
+    @Override
+    public int getVoteCount() {
+        return votes.size();
+    }
+
+    public Answer() {
+        accepted = false;
+    }
 
     public int getId() {
         return id;
@@ -44,35 +53,11 @@ public class Answer implements Serializable {
         this.whenCreated = whenCreated;
     }
 
-    public QaUser getWhoCreated() {
-        return whoCreated;
+    public void setQuestion(Words question) {
+        this.question = question;
     }
 
-    public void setWhoCreated(QaUser whoCreated) {
-        this.whoCreated = whoCreated;
-    }
-
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getContent() {
-        return content;
+    public Words getQuestion() {
+        return question;
     }
 }

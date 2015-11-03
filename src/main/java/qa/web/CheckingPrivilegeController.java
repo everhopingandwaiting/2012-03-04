@@ -5,10 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import qa.domain.QaUser;
 import qa.domain.Question;
-import qa.service.PrivilegeCheckingResult;
-import qa.service.PrivilegeCheckingService;
-import qa.service.QuestionService;
-import qa.service.UserService;
+import qa.domain.Words;
+import qa.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,19 +22,22 @@ public class CheckingPrivilegeController {
     @Autowired
     private PrivilegeCheckingService privilegeService;
 
-    @RequestMapping(value = "voteup/question/{id}")
+    @Autowired
+    private WordsService wordsService;
+
+    @RequestMapping(value = "voteup/{question|answer}/{id}")
     public PrivilegeCheckingResult checkVoteup(@PathVariable("id") int id, HttpServletRequest request) {
-        Question question = questionService.find(id);
+        Words words = wordsService.find(id);
         QaUser user = userService.find(request.getRemoteUser());
 
-        return privilegeService.canVoteup(user, question);
+        return privilegeService.canVoteup(user, words);
     }
 
-    @RequestMapping(value = "votedown/question/{id}")
+    @RequestMapping(value = "votedown/{question|answer}/{id}")
     public PrivilegeCheckingResult checkVotedown(@PathVariable("id") int id, HttpServletRequest request) {
-        Question question = questionService.find(id);
+        Words words = wordsService.find(id);
         QaUser user = userService.find(request.getRemoteUser());
 
-        return privilegeService.canVotedown(user, question);
+        return privilegeService.canVotedown(user, words);
     }
 }
