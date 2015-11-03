@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath('org.akhikhl.gretty:gretty:+')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'org.akhikhl.gretty'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+gretty {
+    contextPath = "/qa-system"
+    httpPort = 8888
+    servletContainer = 'tomcat8'
+}
+
+dependencies {
+    compile('org.springframework:spring-aop:4.2.1.RELEASE')
+    compile('org.springframework:spring-aspects:4.2.1.RELEASE')
+    compile('org.springframework:spring-orm:4.2.1.RELEASE')
+    compile('org.springframework:spring-context:4.2.1.RELEASE')
+    compile('org.springframework:spring-webmvc:4.2.1.RELEASE')
+
+    compile("org.springframework.security:spring-security-web:4.0.2.RELEASE")
+    compile("org.springframework.security:spring-security-config:4.0.2.RELEASE")
+
+    compile('org.hibernate:hibernate-core:5.0.1.Final')
+    runtime('org.hibernate:hibernate-java8:5.0.1.Final')
+    compile('org.hibernate:hibernate-validator:5.2.1.Final')
+
+    compile("org.thymeleaf:thymeleaf-spring4:2.1.4.RELEASE")
+    compile("org.thymeleaf:thymeleaf:2.1.4.RELEASE")
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE')
+
+    compile("com.h2database:h2:1.4.189")
+
+    testCompile('org.springframework:spring-test:4.2.1.RELEASE')
+    testCompile("com.github.springtestdbunit:spring-test-dbunit:1.2.1")
+    testCompile("org.mockito:mockito-core:1.10.19")
+    runtime("org.dbunit:dbunit:2.5.1")
+    runtime('javax.el:javax.el-api:3.0.0')
+    testCompile('junit:junit:4.12')
+
+    runtime("com.fasterxml.jackson.core:jackson-databind:2.6.2")
+
+    providedCompile('javax.servlet:javax.servlet-api:3.1.0')
+}

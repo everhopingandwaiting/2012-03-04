@@ -1,0 +1,72 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:object="${question}">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="*{title}">Question Title</title>
+    <link href="../../../css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="fragments :: navbar"></div>
+<div class="container-fluid">
+    <div th:include="fragments :: toolbar"></div>
+    <div class="row" style="font-size: x-large; border-bottom: 1px solid lightgray;" th:text="*{title}">Question Title
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <div class="row">
+                        <a style="color: black; cursor: pointer;" data-name="voteup" th:value="*{id}"><span
+                                style="font-size: xx-large;" class="glyphicon glyphicon-triangle-top"
+                                aria-hidden="true"></span></a>
+                    </div>
+                    <div class="row">
+                        <span style="font-size: xx-large;" th:text="*{voteCount}" data-name="voteCountSpan">0</span>
+                    </div>
+                    <div class="row">
+                        <a style="color: black; cursor: pointer;"><span style="font-size: xx-large;"
+                                                                        class="glyphicon glyphicon-triangle-bottom"
+                                                                        aria-hidden="true"></span></a>
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <div class="row" data-name="content" th:text="*{content}">question content</div>
+                    <div class="row" th:text="*{tags}"></div>
+                    <div class="row">
+                        <div class="pull-right" style="background-color: lightcyan; padding: 5px;">
+                            <div>asked <span th:text="*{{whenCreated}}">1m ago</span></div>
+                            <div th:text="*{whoCreated.name}">username</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a style="cursor: pointer; text-decoration: none;">add comment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <p>viewed: <span th:text="*{viewCount}">0</span></p>
+
+            <p>answered: <span th:text="*{answerCount}">0</span></p>
+
+            <p>voted: <span th:text="*{voteCount}">0</span></p>
+        </div>
+    </div>
+</div>
+
+<div th:include="fragments :: scripts"></div>
+<script src="../../../js/pagedown/Markdown.Converter.js" th:src="@{/js/pagedown/Markdown.Converter.js}"></script>
+<script src="../../../js/pagedown/Markdown.Sanitizer.js" th:src="@{/js/pagedown/Markdown.Sanitizer.js}"></script>
+<script>
+    var converter = new Markdown.Converter();
+    var content = $("div[data-name='content']").text();
+    $("div[data-name='content']").html(converter.makeHtml(content));
+</script>
+</body>
+</html>

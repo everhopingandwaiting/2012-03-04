@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="H2 - qa@localhost" uuid="fb27b63f-f0a7-4cfa-b798-143183ce6632">
+    <database-info product="H2" version="1.4.189 (2015-09-13)" jdbc-version="4.0" driver-name="H2 JDBC Driver" driver-version="1.4.189 (2015-09-13)">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
+    <schema name="PUBLIC" catalog="QA"/>
+    <table name="QUESTIONS" schema="PUBLIC" catalog="QA" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfQzEwNkNFQ0FfMTM5QV80RkM4X0IyQzBfMURDMUVEQUVCMkZBKQ==" autoIncrement="true"/>
+      <column name="ANSWERCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="CONTENT" sqlType="CLOB" precision="2147483647" scale="0" nullable="false" jdbcType="2005"/>
+      <column name="TAGS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="VIEWCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="VOTECOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="WHENCREATED" sqlType="TIMESTAMP" precision="23" scale="10" nullable="false" jdbcType="93"/>
+      <column name="USER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="CONSTRAINT_3" columns="ID"/>
+      <foreign-key name="FKQ7TURAVARBR3R2RUOW2MWBW85" columns="USER_ID" ref-table="USERS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <index name="FKQ7TURAVARBR3R2RUOW2MWBW85_INDEX_3" unique="false" columns="USER_ID"/>
+    </table>
+    <table name="USERS" schema="PUBLIC" catalog="QA" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfNERBNTYxOTFfODRDM180N0I2Xzk1NUNfQTdCODY5QzhFMjM0KQ==" autoIncrement="true"/>
+      <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="CONSTRAINT_4" columns="ID"/>
+      <exported-key name="FKQ7TURAVARBR3R2RUOW2MWBW85" table="QUESTIONS" schema="PUBLIC" catalog="QA" columns="USER_ID"/>
+      <index name="UK_KBY09MN7E5OE95V5YKDM0C0LQ_INDEX_4" unique="true" columns="NAME"/>
+    </table>
+  </data-source>
+  <data-source name="H2 - devdb" uuid="23f21f98-b048-4117-860e-7e41455ca4cd">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <schema name="PUBLIC" catalog="DEVDB"/>
+  </data-source>
+</component>
