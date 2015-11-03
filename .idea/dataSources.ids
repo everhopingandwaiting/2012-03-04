@@ -7,26 +7,39 @@
     <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact"/>
     <schema name="PUBLIC" catalog="QA"/>
     <table name="QUESTIONS" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfQzEwNkNFQ0FfMTM5QV80RkM4X0IyQzBfMURDMUVEQUVCMkZBKQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfRUUzQzVEQzNfQTBDRF80NkZGXzgyMEFfRTJBMjhENjkyNzBEKQ==" autoIncrement="true"/>
       <column name="ANSWERCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="CONTENT" sqlType="CLOB" precision="2147483647" scale="0" nullable="false" jdbcType="2005"/>
+      <column name="POINTS" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="TAGS" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="VIEWCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="VOTECOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="WHENCREATED" sqlType="TIMESTAMP" precision="23" scale="10" nullable="false" jdbcType="93"/>
       <column name="USER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="CONSTRAINT_3" columns="ID"/>
       <foreign-key name="FKQ7TURAVARBR3R2RUOW2MWBW85" columns="USER_ID" ref-table="USERS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <exported-key name="FKS2UJ7XCKRWN9F80BMSGOS638T" table="VOTES" schema="PUBLIC" catalog="QA" columns="QUESTION_ID"/>
       <index name="FKQ7TURAVARBR3R2RUOW2MWBW85_INDEX_3" unique="false" columns="USER_ID"/>
     </table>
     <table name="USERS" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfNERBNTYxOTFfODRDM180N0I2Xzk1NUNfQTdCODY5QzhFMjM0KQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfNTNBMTM3OTRfMDNGNl80MDNDXzlEMkVfMUIwNTAwQjY3NDQxKQ==" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="CONSTRAINT_4" columns="ID"/>
       <exported-key name="FKQ7TURAVARBR3R2RUOW2MWBW85" table="QUESTIONS" schema="PUBLIC" catalog="QA" columns="USER_ID"/>
+      <exported-key name="FKDMFSSDGEJUYNXALEE2XYITK62" table="VOTES" schema="PUBLIC" catalog="QA" columns="USER_ID"/>
       <index name="UK_KBY09MN7E5OE95V5YKDM0C0LQ_INDEX_4" unique="true" columns="NAME"/>
+    </table>
+    <table name="VOTES" schema="PUBLIC" catalog="QA" type="TABLE">
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfNEYwOEJFRTFfQkMxN180MEU4XzkxRkNfRUY2OEI2NjVBNTUxKQ==" autoIncrement="true"/>
+      <column name="UPVOTED" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
+      <column name="QUESTION_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="USER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="CONSTRAINT_4E" columns="ID"/>
+      <foreign-key name="FKS2UJ7XCKRWN9F80BMSGOS638T" columns="QUESTION_ID" ref-table="QUESTIONS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FKDMFSSDGEJUYNXALEE2XYITK62" columns="USER_ID" ref-table="USERS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <index name="FKDMFSSDGEJUYNXALEE2XYITK62_INDEX_4" unique="false" columns="USER_ID"/>
+      <index name="FKS2UJ7XCKRWN9F80BMSGOS638T_INDEX_4" unique="false" columns="QUESTION_ID"/>
     </table>
   </data-source>
   <data-source name="H2 - devdb" uuid="23f21f98-b048-4117-860e-7e41455ca4cd">

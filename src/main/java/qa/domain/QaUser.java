@@ -62,4 +62,8 @@ public class QaUser implements Serializable {
         }
         return false;
     }
+
+    public int getReputation() {
+        return questions.stream().mapToInt(question -> question.getPoints()).sum();
+    }
 }

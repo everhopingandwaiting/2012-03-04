@@ -2,13 +2,18 @@ package qa.domain;
 
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Type;
+import org.springframework.security.access.vote.AbstractAclVoter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+//TODO 把answerCount替换为Answer对象
 @Entity
 @Table(name = "QUESTIONS")
 public class Question implements Serializable {
@@ -36,9 +41,6 @@ public class Question implements Serializable {
     private String tags;
 
     @Column(nullable = false)
-    private int voteCount;
-
-    @Column(nullable = false)
     private int answerCount;
 
     @Column(nullable = false)
@@ -46,11 +48,14 @@ public class Question implements Serializable {
 
     private int points;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.PERSIST)
+    private Set<Vote> votes;
+
     public Question() {
-        voteCount = 0;
         answerCount = 0;
         viewCount = 0;
         points = 0;
+        votes = new HashSet<>();
         whenCreated = Instant.now();
     }
 
@@ -103,11 +108,7 @@ public class Question implements Serializable {
     }
 
     public int getVoteCount() {
-        return voteCount;
-    }
-
-    public void setVoteCount(int voteCount) {
-        this.voteCount = voteCount;
+        return votes.stream().mapToInt(vote -> vote.isUpVoted() ? 1 : -1).sum();
     }
 
     public int getAnswerCount() {
@@ -136,5 +137,21 @@ public class Question implements Serializable {
 
     public void addPoint(int point) {
         this.points += point;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public void addVote(Vote vote) {
+        votes.add(vote);
+    }
+
+    public void minusPoint(int point) {
+        this.points -= point;
     }
 }

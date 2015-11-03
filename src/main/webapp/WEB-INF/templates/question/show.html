@@ -30,9 +30,10 @@
                         <span style="font-size: xx-large;" th:text="*{voteCount}" data-name="voteCountSpan">0</span>
                     </div>
                     <div class="row">
-                        <a style="color: black; cursor: pointer;"><span style="font-size: xx-large;"
-                                                                        class="glyphicon glyphicon-triangle-bottom"
-                                                                        aria-hidden="true"></span></a>
+                        <a data-name="votedown" th:value="*{id}" style="color: black; cursor: pointer;">
+                            <span style="font-size: xx-large;"
+                                  class="glyphicon glyphicon-triangle-bottom"
+                                  aria-hidden="true"></span></a>
                     </div>
                 </div>
                 <div class="col-md-11">
@@ -41,7 +42,7 @@
                     <div class="row">
                         <div class="pull-right" style="background-color: lightcyan; padding: 5px;">
                             <div>asked <span th:text="*{{whenCreated}}">1m ago</span></div>
-                            <div th:text="*{whoCreated.name}">username</div>
+                            <div><span th:text="*{whoCreated.name}">username</span> <span th:text="*{whoCreated.reputation}">30</span></div>
                         </div>
                     </div>
                     <div class="row">

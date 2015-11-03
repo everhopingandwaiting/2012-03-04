@@ -9,8 +9,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import qa.domain.QaUser;
 import qa.domain.Question;
+import qa.domain.Vote;
 import qa.service.QuestionService;
 import qa.service.UserService;
+import qa.service.VoteService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -80,8 +82,27 @@ public class QuestionController {
 
     @RequestMapping(value = "/question/{id}/voteup", method = RequestMethod.POST)
     @ResponseBody
-    public int voteup(@PathVariable("id") int id) {
+    public int voteup(@PathVariable("id") int id, HttpServletRequest request) {
         Question question = questionService.find(id);
-        return questionService.plusOneVote(question).getViewCount();
+
+        Vote vote = new Vote();
+        vote.setWhoVoted(userService.find(request.getRemoteUser()));
+        vote.setQuestion(question);
+        vote.setUpVoted(true);
+
+        return questionService.plusOneVote(question, vote).getVoteCount();
+    }
+
+    @RequestMapping(value = "/question/{id}/votedown", method = RequestMethod.POST)
+    @ResponseBody
+    public int votedown(@PathVariable("id") int id, HttpServletRequest request) {
+        Question question = questionService.find(id);
+
+        Vote vote = new Vote();
+        vote.setWhoVoted(userService.find(request.getRemoteUser()));
+        vote.setQuestion(question);
+        vote.setUpVoted(false);
+
+        return questionService.plusOneVote(question, vote).getVoteCount();
     }
 }

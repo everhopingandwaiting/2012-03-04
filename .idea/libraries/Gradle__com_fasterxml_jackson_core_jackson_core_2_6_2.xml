@@ -2,10 +2,12 @@
   <library name="Gradle: com.fasterxml.jackson.core:jackson-core:2.6.2">
     <CLASSES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.2/123f29333b2c6b3516b14252b6e93226bfcd6e37/jackson-core-2.6.2.jar!/" />
+      <root url="jar://E:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.2/123f29333b2c6b3516b14252b6e93226bfcd6e37/jackson-core-2.6.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.2/3b91c78f65697c9dc527f7235123eabca55e78/jackson-core-2.6.2-sources.jar!/" />
+      <root url="jar://E:/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.6.2/3b91c78f65697c9dc527f7235123eabca55e78/jackson-core-2.6.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

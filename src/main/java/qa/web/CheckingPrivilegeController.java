@@ -31,4 +31,12 @@ public class CheckingPrivilegeController {
 
         return privilegeService.canVoteup(user, question);
     }
+
+    @RequestMapping(value = "votedown/question/{id}")
+    public PrivilegeCheckingResult checkVotedown(@PathVariable("id") int id, HttpServletRequest request) {
+        Question question = questionService.find(id);
+        QaUser user = userService.find(request.getRemoteUser());
+
+        return privilegeService.canVotedown(user, question);
+    }
 }

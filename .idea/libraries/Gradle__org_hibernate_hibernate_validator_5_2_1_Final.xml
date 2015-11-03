@@ -2,10 +2,12 @@
   <library name="Gradle: org.hibernate:hibernate-validator:5.2.1.Final">
     <CLASSES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.1.Final/1fcfc403faebd279582fb047dfaedcffe40d8337/hibernate-validator-5.2.1.Final.jar!/" />
+      <root url="jar://E:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.1.Final/1fcfc403faebd279582fb047dfaedcffe40d8337/hibernate-validator-5.2.1.Final.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://D:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.1.Final/f381689ad0c757811f1dc3abafeb3382f154a33b/hibernate-validator-5.2.1.Final-sources.jar!/" />
+      <root url="jar://E:/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.2.1.Final/f381689ad0c757811f1dc3abafeb3382f154a33b/hibernate-validator-5.2.1.Final-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

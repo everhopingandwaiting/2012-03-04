@@ -19,6 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import qa.dao.QuestionDao;
 import qa.dao.UserDao;
+import qa.dao.VoteDao;
 
 import javax.sql.DataSource;
 
@@ -37,6 +38,11 @@ public class DaoConfiguration {
     @Bean
     public UserDao userDao(HibernateTemplate template) {
         return new UserDao(template);
+    }
+
+    @Bean
+    public VoteDao voteDao(HibernateTemplate template) {
+        return new VoteDao(template);
     }
 
     @Bean
