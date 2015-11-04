@@ -28,8 +28,9 @@ public class WordsDao {
         return template.merge(words);
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public <T extends Words> List<T> findAll(Class<T> wordsClass) {
-        return (List<T>) template.findByCriteria(DetachedCriteria.forClass(wordsClass));
+        return (List<T>) template.find("FROM " + wordsClass.getSimpleName());
     }
 }

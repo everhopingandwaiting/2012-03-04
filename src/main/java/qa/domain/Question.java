@@ -1,15 +1,8 @@
 package qa.domain;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Type;
-import org.springframework.security.access.vote.AbstractAclVoter;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,10 +14,16 @@ public class Question extends Words implements Serializable {
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "questions")
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinTable(name = "QUESTIONS_TAGS",
+            joinColumns = @JoinColumn(name = "QUESTION_ID", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "TAG_ID", nullable = false))
     private Set<Tag> tags;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+    @OneToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE,
+            mappedBy = "question")
     private Set<Answer> answers;
 
     @Column(nullable = false)

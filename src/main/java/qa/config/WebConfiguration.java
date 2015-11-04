@@ -17,6 +17,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import qa.web.converter.InstantToStringConverter;
+import qa.web.converter.TagsFormatter;
 
 @Configuration
 @EnableWebMvc
@@ -70,5 +71,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new InstantToStringConverter());
+        registry.addFormatter(new TagsFormatter());
     }
 }

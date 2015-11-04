@@ -331,18 +331,11 @@
       <foreign-key name="FKS82QCS8U3GN4EY2YXKP20LAB6" columns="ID" ref-table="WORDS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
       <index name="FKIXRRCB5DLQ02B02SYPTL62R51_INDEX_F" unique="false" columns="QUESTION_ID"/>
     </table>
-    <table name="ANSWERS_VOTES" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="ANSWER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="VOTE_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="VOTES_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="CONSTRAINT_3" columns="ANSWER_ID,VOTES_ID"/>
-      <index name="UK_OT5D90GMLBBNL2MXYSFPM8SUF_INDEX_3" unique="true" columns="VOTES_ID"/>
-    </table>
     <table name="QUESTIONS" schema="PUBLIC" catalog="QA" type="TABLE">
       <column name="TITLE" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="VIEWCOUNT" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="CONSTRAINT_3B" columns="ID"/>
+      <primary-key name="CONSTRAINT_3" columns="ID"/>
       <foreign-key name="FKTL4JDR5MFOQXSN3GLWJ83V0D0" columns="ID" ref-table="WORDS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
       <exported-key name="FKIMMR0H5SOAMTO0BX1P7GRX5Q6" table="ANSWERS" schema="PUBLIC" catalog="QA" columns="QUESTION_ID"/>
       <exported-key name="FKQRPE7S7LWQIT3DB75BCKDU48A" table="QUESTIONS_TAGS" schema="PUBLIC" catalog="QA" columns="QUESTION_ID"/>
@@ -350,24 +343,20 @@
     <table name="QUESTIONS_TAGS" schema="PUBLIC" catalog="QA" type="TABLE">
       <column name="TAG_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="QUESTION_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="CONSTRAINT_30" columns="TAG_ID,QUESTION_ID"/>
+      <primary-key name="CONSTRAINT_30" columns="QUESTION_ID,TAG_ID"/>
       <foreign-key name="FKQRPE7S7LWQIT3DB75BCKDU48A" columns="QUESTION_ID" ref-table="QUESTIONS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
       <foreign-key name="FKOE7IMG88IEXGCF6DN8TC56MP9" columns="TAG_ID" ref-table="TAGS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
-      <index name="FKQRPE7S7LWQIT3DB75BCKDU48A_INDEX_3" unique="false" columns="QUESTION_ID"/>
-    </table>
-    <table name="QUESTIONS_VOTES" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="QUESTION_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="VOTE_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="CONSTRAINT_E" columns="VOTE_ID"/>
+      <index name="FKOE7IMG88IEXGCF6DN8TC56MP9_INDEX_3" unique="false" columns="TAG_ID"/>
     </table>
     <table name="TAGS" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfREZFRDY3NTFfMjJENV80NzkwXzk5NDVfMzM0MkY3Mjc0N0NCKQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfM0Y5RDNCMjZfQzA1MF80QjFCXzk1NjRfQ0Q0NjI1Q0RCNUQ4KQ==" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="CONSTRAINT_2" columns="ID"/>
       <exported-key name="FKOE7IMG88IEXGCF6DN8TC56MP9" table="QUESTIONS_TAGS" schema="PUBLIC" catalog="QA" columns="TAG_ID"/>
+      <index name="UK_CUXT0UVE31A7VAPB7EFAHLWFU_INDEX_2" unique="true" columns="NAME"/>
     </table>
     <table name="USERS" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfODBFRjRCQ0ZfNjA3OF80MzVEXzhBNzlfNEFGMzJDRjZBMzhBKQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfRjBGQjRBNTdfN0RGQV80RDlDX0I5MEJfRjlDMUFGQkYyNEZDKQ==" autoIncrement="true"/>
       <column name="NAME" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="PASSWORD" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <primary-key name="CONSTRAINT_4" columns="ID"/>
@@ -376,17 +365,19 @@
       <index name="UK_KBY09MN7E5OE95V5YKDM0C0LQ_INDEX_4" unique="true" columns="NAME"/>
     </table>
     <table name="VOTES" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfODk2QjQ3NDhfRTA4N180RTFFX0IwMUJfMTFEQkQ4QjgxQUU4KQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfMUZEOUU2QjJfNENGQ180MzE0XzhCMkZfRkE3NkVBQUU4NzMzKQ==" autoIncrement="true"/>
       <column name="UPVOTED" sqlType="BOOLEAN" precision="1" scale="0" nullable="false" jdbcType="16"/>
       <column name="USER_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="WORDS_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <primary-key name="CONSTRAINT_4E" columns="ID"/>
       <foreign-key name="FKDMFSSDGEJUYNXALEE2XYITK62" columns="USER_ID" ref-table="USERS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
-      <exported-key name="FKWUGGU2D2F7SODEVQLDMS3OYQ" table="WORDS_VOTES" schema="PUBLIC" catalog="QA" columns="VOTE_ID"/>
+      <foreign-key name="FK5BILHVKBOH0I76NUEO5HH0QVT" columns="WORDS_ID" ref-table="WORDS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
+      <index name="FK5BILHVKBOH0I76NUEO5HH0QVT_INDEX_4" unique="false" columns="WORDS_ID"/>
       <index name="FKDMFSSDGEJUYNXALEE2XYITK62_INDEX_4" unique="false" columns="USER_ID"/>
     </table>
     <table name="WORDS" schema="PUBLIC" catalog="QA" type="TABLE">
       <column name="TYPE" sqlType="VARCHAR" precision="31" scale="0" nullable="false" jdbcType="12"/>
-      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfRUFBOEY3OURfMDBDRF80NkQ1X0FFOUJfREFBMEJGMDUxRTAzKQ==" autoIncrement="true"/>
+      <column name="ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4" def="KE5FWFQgVkFMVUUgRk9SIFBVQkxJQy5TWVNURU1fU0VRVUVOQ0VfMUVEODcwODRfMEU5MF80OTg4XzlERTRfOTRCNkFDN0M0MjlDKQ==" autoIncrement="true"/>
       <column name="CONTENT" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <column name="POINTS" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
       <column name="WHENCREATED" sqlType="TIMESTAMP" precision="23" scale="10" nullable="false" jdbcType="93"/>
@@ -396,16 +387,8 @@
       <exported-key name="FKIXRRCB5DLQ02B02SYPTL62R51" table="ANSWERS" schema="PUBLIC" catalog="QA" columns="QUESTION_ID"/>
       <exported-key name="FKS82QCS8U3GN4EY2YXKP20LAB6" table="ANSWERS" schema="PUBLIC" catalog="QA" columns="ID"/>
       <exported-key name="FKTL4JDR5MFOQXSN3GLWJ83V0D0" table="QUESTIONS" schema="PUBLIC" catalog="QA" columns="ID"/>
-      <exported-key name="FKRYU33GI2EGNQY9JO7T6YR34BF" table="WORDS_VOTES" schema="PUBLIC" catalog="QA" columns="WORDS_ID"/>
+      <exported-key name="FK5BILHVKBOH0I76NUEO5HH0QVT" table="VOTES" schema="PUBLIC" catalog="QA" columns="WORDS_ID"/>
       <index name="FKMJ4N8HSK876NCFN7372GGYAJD_INDEX_4" unique="false" columns="USER_ID"/>
-    </table>
-    <table name="WORDS_VOTES" schema="PUBLIC" catalog="QA" type="TABLE">
-      <column name="WORDS_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <column name="VOTE_ID" sqlType="INTEGER" precision="10" scale="0" nullable="false" jdbcType="4"/>
-      <primary-key name="CONSTRAINT_D" columns="VOTE_ID"/>
-      <foreign-key name="FKWUGGU2D2F7SODEVQLDMS3OYQ" columns="VOTE_ID" ref-table="VOTES" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
-      <foreign-key name="FKRYU33GI2EGNQY9JO7T6YR34BF" columns="WORDS_ID" ref-table="WORDS" ref-schema="PUBLIC" ref-catalog="QA" ref-columns="ID" update-rule="1" delete-rule="1" deferrability="2"/>
-      <index name="FKRYU33GI2EGNQY9JO7T6YR34BF_INDEX_D" unique="false" columns="WORDS_ID"/>
     </table>
   </data-source>
 </component>

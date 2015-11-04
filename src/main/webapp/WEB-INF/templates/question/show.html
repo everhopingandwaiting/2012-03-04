@@ -41,7 +41,10 @@
                 </div>
                 <div class="col-md-11" style="margin-top: 10px;">
                     <div class="row" data-name="content" th:text="*{content}">question content</div>
-                    <div class="row" th:text="*{tags}"></div>
+                    <div class="row">
+                        <span style="background-color: #e4edf4; color: #3e6d8e; padding: 5px;" th:each="tag : *{tags}"
+                              th:text="${tag.name}">angularjs</span>
+                    </div>
                     <div class="row">
                         <div class="pull-right" style="background-color: lightcyan; padding: 5px;">
                             <div>asked <span th:text="*{{whenCreated}}">1m ago</span></div>

@@ -56,14 +56,14 @@
                     <div class="row" style="margin-top: 10px;">
                         <div class="col-md-8">
                             <div class="row">
-                                <span style="background-color: lightcyan; padding: 5px;"
-                                      th:text="*{tags}">angularjs</span>
+                                <span style="background-color: #e4edf4; color: #3e6d8e; padding: 5px;" th:each="tag : *{tags}"
+                                      th:text="${tag.name}">angularjs</span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <span class="pull-right">ask <span th:text="*{{whenCreated}}">1m ago</span> by <span
-                                        th:text="*{whoCreated}">user</span></span>
+                                        th:text="*{whoCreated.name}">user</span></span>
                             </div>
                         </div>
                     </div>

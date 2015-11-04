@@ -15,9 +15,7 @@ public class Vote implements Serializable {
     private QaUser whoVoted;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "WORDS_VOTES",
-            joinColumns = @JoinColumn(name = "VOTE_ID", nullable = false),
-            inverseJoinColumns = @JoinColumn(name = "WORDS_ID", nullable = false))
+    @JoinColumn(name = "WORDS_ID", nullable = false)
     private Words words;
 
     private boolean upVoted;

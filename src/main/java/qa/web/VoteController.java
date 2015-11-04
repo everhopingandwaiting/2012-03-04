@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import qa.domain.Vote;
+import qa.domain.Words;
 import qa.service.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,12 +34,14 @@ public class VoteController {
     public int vote(@PathVariable("id") int id,
                     @PathVariable("direction") String direction,
                     HttpServletRequest request) {
+        Words words = wordsService.find(id);
+
         Vote vote = new Vote();
-        vote.setUpVoted(direction.equals(UP) ? true : false);
+        vote.setUpVoted(direction.equals(UP));
         vote.setWhoVoted(userService.find(request.getRemoteUser()));
-        vote.setWords(wordsService.find(id));
+        vote.setWords(words);
         voteService.addOneVote(vote);
-        return wordsService.find(id).getVoteCount();
+        return words.getVoteCount() + 1;
     }
 
 }

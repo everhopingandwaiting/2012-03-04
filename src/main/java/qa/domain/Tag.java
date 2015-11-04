@@ -11,8 +11,15 @@ public class Tag implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
+
+    protected Tag() {
+    }
+
+    public Tag(String name) {
+        this.name = name;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "QUESTIONS_TAGS",
