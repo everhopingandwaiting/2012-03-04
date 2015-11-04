@@ -1,0 +1,101 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Ask Question</title>
+    <link href="../../../css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+    <link href="../../../css/editor.css"
+          th:href="@{/css/editor.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="fragments :: navbar"></div>
+<div class="container-fluid" style="margin: 0 10px;">
+    <div th:include="fragments :: toolbar"></div>
+    <div class="row" style="font-size: x-large; border-bottom: 1px solid lightgray;">
+        Ask Question
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-9">
+            <div class="row">
+                <form class="form-horizontal"
+                      action="#"
+                      method="post"
+                      th:action="@{/question}"
+                      th:object="${question}">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10" th:if="${#fields.hasErrors('*')}">
+                            <li class="text-danger" th:each="error : ${#fields.errors('*')}" th:text="${error}">
+                                Incorrect Input
+                            </li>
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('title')} ? 'form-group has-error' : 'form-group'">
+                        <label th:for="${#ids.next('title')}" class="col-md-2 control-label">Title</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{title}"/>
+                        </div>
+                    </div>
+                    <div th:class="${#fields.hasErrors('content')} ? 'form-group has-error' : 'form-group'">
+                        <label th:for="${#ids.next('content')}" class="col-sm-2 control-label">Content</label>
+
+                        <div class="col-md-10">
+                            <!--<textarea rows="10" class="form-control" th:field="*{content}"></textarea>-->
+                            <div id="wmd-button-bar"></div>
+                            <textarea class="form-control" id="wmd-input" rows="10" style="margin-bottom: 10px;" th:field="*{content}"></textarea>
+                            <div id="wmd-preview" class="wmd-preview"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label th:for="${#ids.next('tags')}" class="col-md-2 control-label">Tags</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" th:field="*{tags}"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button type="submit" class="btn btn-default">Post My Question</button>
+                            <button type="reset" class="btn btn-default">Clear My Input</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Notice</h3>
+                </div>
+                <div class="panel-body">
+                    <li>Describe your question as specific as possible.</li>
+                    <li>Search related questions before asking yours.</li>
+                    <li th:text="#{question.add.title.size}">question title size hint</li>
+                    <li th:text="#{question.add.content.size}">question content size hint</li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="fragments :: scripts"></div>
+<script src="../../../js/pagedown/Markdown.Converter.js" th:src="@{/js/pagedown/Markdown.Converter.js}"></script>
+<script src="../../../js/pagedown/Markdown.Sanitizer.js" th:src="@{/js/pagedown/Markdown.Sanitizer.js}"></script>
+<script src="../../../js/pagedown/Markdown.Editor.js" th:src="@{/js/pagedown/Markdown.Editor.js}"></script>
+<script>
+    var converter = new Markdown.Converter();
+    converter.hooks.chain("preBlockGamut", function (text, rbg) {
+        return text.replace(/^ {0,3}""" *\n((?:.*?\n)+?) {0,3}""" *$/gm, function (whole, inner) {
+            return "<blockquote>" + rbg(inner) + "</blockquote>\n";
+        });
+    });
+
+    var editor = new Markdown.Editor(converter);
+    editor.run();
+</script>
+</body>
+</html>
