@@ -73,6 +73,6 @@ public class QaUser implements Serializable {
     }
 
     public int getReputation() {
-        return words.stream().mapToInt(question -> question.getPoints()).sum();
+        return words.stream().mapToInt(Words::getPoints).sum();
     }
 }

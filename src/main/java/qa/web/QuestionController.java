@@ -10,19 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import qa.domain.*;
-import qa.service.QuestionService;
-import qa.service.UserService;
-import qa.service.VoteService;
-import qa.service.WordsService;
+import qa.service.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.awt.*;
 import java.time.Instant;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Controller
 public class QuestionController {
@@ -34,6 +31,9 @@ public class QuestionController {
 
     @Autowired
     private WordsService wordsService;
+
+    @Autowired
+    private TagService tagService;
 
     @ModelAttribute("emptyanswer")
     public Answer emptyAnswer() {
@@ -59,6 +59,10 @@ public class QuestionController {
         if (result.hasErrors()) {
             return "question/ask";
         }
+
+        question.setTags(question.getTags().stream()
+                .map(tag -> tagService.find(tag))
+                .collect(Collectors.toSet()));
 
         question.setWhenCreated(Instant.now());
         question.setWhoCreated(userService.find(request.getRemoteUser()));

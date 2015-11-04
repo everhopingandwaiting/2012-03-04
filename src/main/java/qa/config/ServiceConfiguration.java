@@ -23,6 +23,11 @@ public class ServiceConfiguration {
     }
 
     @Bean
+    public TagService tagService(TagDao tagDao) {
+        return new TagService(tagDao);
+    }
+
+    @Bean
     public VoteService voteService(VoteDao voteDao) {
         return new VoteService(voteDao);
     }

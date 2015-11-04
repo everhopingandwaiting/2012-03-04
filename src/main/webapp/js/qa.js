@@ -24,7 +24,7 @@ function checkVotePrivilege(url) {
 }
 
 function vote(url, element) {
-    var voteCountSpan = $(element).parent().parent().find("span[data-name='voteCountSpan']")
+    var voteCountSpan = $(element).parent().parent().find("span[data-name='voteCountSpan']");
 
     $.ajax({
         url: url,

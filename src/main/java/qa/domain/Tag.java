@@ -2,6 +2,7 @@ package qa.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -49,5 +50,24 @@ public class Tag implements Serializable {
 
     public Set<Question> getQuestions() {
         return questions;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("{name:%s, id:%s}", name, id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Tag) {
+            Tag that = (Tag) obj;
+            return Objects.equals(that.name, this.name);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
     }
 }

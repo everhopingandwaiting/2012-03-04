@@ -3,6 +3,7 @@ package qa.web.converter;
 import org.springframework.format.Formatter;
 import org.springframework.util.Assert;
 import qa.domain.Tag;
+import qa.service.TagService;
 
 import java.text.ParseException;
 import java.util.Arrays;
@@ -17,10 +18,9 @@ public class TagsFormatter implements Formatter<Set<Tag>> {
         Assert.hasLength(text);
 
         String[] names = text.split(";");
-        Set<Tag> tags = new HashSet<>();
-        Arrays.stream(names).forEach(name -> tags.add(new Tag(name)));
-
-        return tags;
+        return Arrays.stream(names)
+                .distinct().map(Tag::new)
+                .collect(Collectors.toSet());
     }
 
     @Override

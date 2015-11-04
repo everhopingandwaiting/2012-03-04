@@ -11,7 +11,9 @@ import qa.service.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping(value = "/check", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/check",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class CheckingPrivilegeController {
     @Autowired
     private QuestionService questionService;

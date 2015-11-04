@@ -30,6 +30,8 @@ public class VoteController {
     @Autowired
     private WordsService wordsService;
 
+    //vote/question/1/up(down)
+    //vote/answer/1/up(down)
     @RequestMapping(value = "/vote/{question|answer}/{id}/{direction:up|down}")
     public int vote(@PathVariable("id") int id,
                     @PathVariable("direction") String direction,
@@ -41,7 +43,8 @@ public class VoteController {
         vote.setWhoVoted(userService.find(request.getRemoteUser()));
         vote.setWords(words);
         voteService.addOneVote(vote);
-        return words.getVoteCount() + 1;
+
+        return wordsService.find(id).getVoteCount();
     }
 
 }

@@ -51,11 +51,6 @@ public class Question extends Words implements Serializable {
         this.tags = tags;
     }
 
-    @Override
-    public int getVoteCount() {
-        return votes.stream().mapToInt(vote -> vote.isUpVoted() ? 1 : -1).sum();
-    }
-
     public int getAnswerCount() {
         return answers.size();
     }

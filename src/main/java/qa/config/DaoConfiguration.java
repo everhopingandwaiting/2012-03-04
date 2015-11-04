@@ -12,6 +12,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import qa.dao.TagDao;
 import qa.dao.UserDao;
 import qa.dao.VoteDao;
 import qa.dao.WordsDao;
@@ -41,6 +42,11 @@ public class DaoConfiguration {
     }
 
     @Bean
+    public TagDao tagDao(HibernateTemplate template) {
+        return new TagDao(template);
+    }
+
+    @Bean
     public HibernateTemplate hibernateTemplate(SessionFactory sessionFactory) {
         return new HibernateTemplate(sessionFactory);
     }
@@ -50,7 +56,7 @@ public class DaoConfiguration {
         return new LocalSessionFactoryBuilder(dataSource)
                 .scanPackages("qa.domain")
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
-                .setProperty("hibernate.hbm2ddl.auto", "create-drop")
+                .setProperty("hibernate.hbm2ddl.auto", "update")
                 .setProperty("hibernate.show_sql", "true")
                 .buildSessionFactory();
     }

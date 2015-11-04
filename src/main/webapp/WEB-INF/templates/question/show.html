@@ -29,7 +29,7 @@
                                 aria-hidden="true"></span></a>
                     </div>
                     <div class="row">
-                        <span style="color: #777777; font-size: xx-large;" th:text="*{voteCount}"
+                        <span style="color: #777777; font-size: xx-large;" th:text="*{voteCount}" th:styleappend="*{voteCount lt 0} ? 'color: red;'"
                               data-name="voteCountSpan">0</span>
                     </div>
                     <div class="row">
@@ -71,7 +71,7 @@
                                 aria-hidden="true"></span></a>
                     </div>
                     <div class="row">
-                        <span data-name="voteCountSpan" style="color: #777777; font-size: xx-large;"
+                        <span data-name="voteCountSpan" style="color: #777777; font-size: xx-large;" th:styleappend="*{voteCount lt 0} ? 'color: red;'"
                               th:text="*{voteCount}">0</span>
                     </div>
                     <div class="row">

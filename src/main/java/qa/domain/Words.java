@@ -30,10 +30,13 @@ public abstract class Words {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "words")
     protected Set<Vote> votes;
 
+    @Lob
     @Column(nullable = false)
     protected String content;
 
-    public abstract int getVoteCount();
+    public int getVoteCount() {
+        return votes.stream().mapToInt(vote -> vote.isUpVoted() ? 1 : -1).sum();
+    }
 
     public Words() {
         points = 0;

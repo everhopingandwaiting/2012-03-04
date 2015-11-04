@@ -14,11 +14,6 @@ public class Answer extends Words implements Serializable {
     @JoinColumn(name = "QUESTION_ID", nullable = false)
     private Words question;
 
-    @Override
-    public int getVoteCount() {
-        return votes.size();
-    }
-
     public Answer() {
         accepted = false;
     }
