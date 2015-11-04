@@ -28,14 +28,15 @@ gretty {
 }
 
 dependencies {
-    compile('org.springframework:spring-aop:4.2.1.RELEASE')
-    compile('org.springframework:spring-aspects:4.2.1.RELEASE')
-    compile('org.springframework:spring-orm:4.2.1.RELEASE')
-    compile('org.springframework:spring-context:4.2.1.RELEASE')
-    compile('org.springframework:spring-webmvc:4.2.1.RELEASE')
+    compile('org.springframework:spring-aop:4.2.2.RELEASE')
+    compile('org.springframework:spring-aspects:4.2.2.RELEASE')
+    compile('org.springframework:spring-orm:4.2.2.RELEASE')
+    compile('org.springframework:spring-context:4.2.2.RELEASE')
+    compile('org.springframework:spring-webmvc:4.2.2.RELEASE')
 
     compile("org.springframework.security:spring-security-web:4.0.2.RELEASE")
     compile("org.springframework.security:spring-security-config:4.0.2.RELEASE")
+    compile("org.springframework.security:spring-security-test:4.0.3.RELEASE")
 
     compile('org.hibernate:hibernate-core:5.0.1.Final')
     runtime('org.hibernate:hibernate-java8:5.0.1.Final')
@@ -47,7 +48,7 @@ dependencies {
 
     compile("com.h2database:h2:1.4.189")
 
-    testCompile('org.springframework:spring-test:4.2.1.RELEASE')
+    testCompile('org.springframework:spring-test:4.2.2.RELEASE')
     testCompile("com.github.springtestdbunit:spring-test-dbunit:1.2.1")
     testCompile("org.mockito:mockito-core:1.10.19")
     runtime("org.dbunit:dbunit:2.5.1")

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -75,4 +76,13 @@ public class Question extends Words implements Serializable {
         this.viewCount = viewCount;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Question) {
+            Question that = (Question) obj;
+            return Objects.equals(this.title, that.title)
+                    && Objects.equals(this.content, that.content);
+        }
+        return false;
+    }
 }

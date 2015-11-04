@@ -1,7 +1,5 @@
 package qa.config;
 
-import org.h2.engine.Session;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -14,7 +12,9 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import qa.dao.*;
+import qa.dao.UserDao;
+import qa.dao.VoteDao;
+import qa.dao.WordsDao;
 
 import javax.sql.DataSource;
 
@@ -50,7 +50,7 @@ public class DaoConfiguration {
         return new LocalSessionFactoryBuilder(dataSource)
                 .scanPackages("qa.domain")
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
-                .setProperty("hibernate.hbm2ddl.auto", "update")
+                .setProperty("hibernate.hbm2ddl.auto", "create-drop")
                 .setProperty("hibernate.show_sql", "true")
                 .buildSessionFactory();
     }
@@ -67,7 +67,7 @@ public class DaoConfiguration {
         return dataSource;
     }
 
-    @Bean(destroyMethod = "shutdown")
+    @Bean(destroyMethod = "shutdown", name = "dataSource")
     @Profile("dev")
     public DataSource devDataSource() {
         return new EmbeddedDatabaseBuilder()
