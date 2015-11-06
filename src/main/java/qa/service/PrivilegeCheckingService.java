@@ -1,10 +1,17 @@
 package qa.service;
 
+import org.springframework.core.env.Environment;
 import qa.domain.QaUser;
 import qa.domain.Question;
 import qa.domain.Words;
 
 public class PrivilegeCheckingService {
+    private Environment environment;
+
+    public PrivilegeCheckingService(Environment environment) {
+        this.environment = environment;
+    }
+
     private PrivilegeCheckingResult canVote(QaUser user, Words words) {
         if (user == null || words == null) {
             return PrivilegeCheckingResult.getNotPassedResult("user or question is null");
@@ -27,12 +34,14 @@ public class PrivilegeCheckingService {
 
     public PrivilegeCheckingResult canVotedown(QaUser user, Words words) {
         PrivilegeCheckingResult result = canVote(user, words);
-        if(!result.isPassed()) {
+        if (!result.isPassed()) {
             return result;
         }
 
-        if(user.getReputation() < 50) { //TODO hard code
-            return PrivilegeCheckingResult.getNotPassedResult("you must have at least 50 reputation scores.");
+        int minScore = environment.getRequiredProperty("reputation.required.votedown", Integer.class);
+        if (user.getReputation() < minScore) {
+            return PrivilegeCheckingResult.getNotPassedResult(
+                    String.format("you must have at least 50 reputation scores.", minScore));
         }
 
         return PrivilegeCheckingResult.getPassedResult();

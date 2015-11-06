@@ -3,12 +3,15 @@ package qa.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import qa.dao.*;
 import qa.service.*;
 
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+@PropertySource("classpath:setting.properties")
 public class ServiceConfiguration {
     @Bean
     public QuestionService questionService(WordsDao wordsDao) {
@@ -38,13 +41,13 @@ public class ServiceConfiguration {
     }
 
     @Bean
-    public PrivilegeCheckingService privilegeService() {
-        return new PrivilegeCheckingService();
+    public PrivilegeCheckingService privilegeService(Environment environment) {
+        return new PrivilegeCheckingService(environment);
     }
 
     @Bean
-    public PointsService pointsService(WordsDao wordsDao) {
-        return new PointsService(wordsDao);
+    public PointsService pointsService(WordsDao wordsDao, Environment environment) {
+        return new PointsService(wordsDao, environment);
     }
 
 }
