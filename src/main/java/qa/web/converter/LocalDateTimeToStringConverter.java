@@ -2,7 +2,9 @@ package qa.web.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class LocalDateTimeToStringConverter implements Converter<LocalDateTime, String> {
@@ -11,10 +13,7 @@ public class LocalDateTimeToStringConverter implements Converter<LocalDateTime, 
         LocalDateTime now = LocalDateTime.now();
         Duration duration = Duration.between(dateTime, now);
 
-        System.out.println(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateTime) + "......................");
-        System.out.println(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(now) + "......................");
         Period period = Period.between(dateTime.toLocalDate(), now.toLocalDate());
-        System.out.println(period.getDays() + " " + period.getMonths() + " " + period.getYears());
 
         if(duration.toMinutes() < 1) {
             return String.format("%s secs ago", duration.getSeconds());
