@@ -64,7 +64,6 @@ public class QuestionController {
                 .map(tag -> tagService.find(tag))
                 .collect(Collectors.toSet()));
 
-        question.setWhenCreated(Instant.now());
         question.setWhoCreated(userService.find(request.getRemoteUser()));
         wordsService.addOne(question);
         return "redirect:/questions";

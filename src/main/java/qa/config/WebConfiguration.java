@@ -1,6 +1,5 @@
 package qa.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,8 +16,7 @@ import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import qa.service.TagService;
-import qa.web.converter.InstantToStringConverter;
+import qa.web.converter.LocalDateTimeToStringConverter;
 import qa.web.converter.TagsFormatter;
 
 @Configuration
@@ -72,7 +70,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new InstantToStringConverter());
+        registry.addConverter(new LocalDateTimeToStringConverter());
         registry.addFormatter(new TagsFormatter());
     }
 }

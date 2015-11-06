@@ -15,6 +15,7 @@ public class Answer extends Words implements Serializable {
     private Words question;
 
     public Answer() {
+        super();
         accepted = false;
     }
 

@@ -31,6 +31,7 @@ public class Question extends Words implements Serializable {
     private int viewCount;
 
     public Question() {
+        super();
         viewCount = 0;
         tags = new HashSet<>();
     }

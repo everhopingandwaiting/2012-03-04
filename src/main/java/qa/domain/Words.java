@@ -4,6 +4,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,9 +17,9 @@ public abstract class Words {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
 
-    @Type(type = "org.hibernate.type.InstantType")
+    @Type(type = "org.hibernate.type.LocalDateTimeType")
     @Column(nullable = false)
-    protected Instant whenCreated;
+    protected LocalDateTime whenCreated;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
@@ -41,7 +42,7 @@ public abstract class Words {
     public Words() {
         points = 0;
         votes = new HashSet<>();
-        whenCreated = Instant.now();
+        whenCreated = LocalDateTime.now();
     }
 
     public int getId() {
@@ -52,11 +53,11 @@ public abstract class Words {
         this.id = id;
     }
 
-    public Instant getWhenCreated() {
+    public LocalDateTime getWhenCreated() {
         return whenCreated;
     }
 
-    public void setWhenCreated(Instant whenCreated) {
+    public void setWhenCreated(LocalDateTime whenCreated) {
         this.whenCreated = whenCreated;
     }
 
