@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/travis-ci/travis-web.png?branch=master)](https://travis-ci.org/travis-ci/travis-web)
+[![Build Status](https://travis-ci.org/javaee-course/2012-03-04.svg)](https://travis-ci.org/javaee-course/2012-03-04)
 
 ## 1.0.RELEASE, features include:
 * Show question list.
