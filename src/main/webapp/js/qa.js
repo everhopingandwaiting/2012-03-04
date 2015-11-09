@@ -30,7 +30,7 @@ function vote(url, element) {
         url: url,
         method: "post",
         success: function (data) {
-            if(parseInt(data) < 0) {
+            if (parseInt(data) < 0) {
                 voteCountSpan.addClass("text-danger");
             }
             voteCountSpan.text(data);
@@ -41,44 +41,30 @@ function vote(url, element) {
     });
 }
 
+function voteLinkClicked(type, direction, element) {
+    var id = $(element).attr("value");
+
+    if (!checkVotePrivilege("/qa-system/check/vote/" + type + "/" + id + "/" + direction)) {
+        return;
+    }
+
+    vote("/qa-system/vote/question/" + id + "/" + direction, element);
+}
+
 $(function () {
     $("a[data-name='voteup_question']").click(function () {
-        var questionId = $(this).attr("value");
-
-        if (!checkVotePrivilege("/qa-system/check/voteup/question/" + questionId)) {
-            return;
-        }
-
-        vote("/qa-system/vote/question/" + questionId + "/up", this);
+        voteLinkClicked("question", "up", this);
     });
 
     $("a[data-name='votedown_question']").click(function () {
-        var questionId = $(this).attr("value");
-
-        if (!checkVotePrivilege("/qa-system/check/votedown/question/" + questionId)) {
-            return;
-        }
-
-        vote("/qa-system/vote/question/" + questionId + "/down", this);
+        voteLinkClicked("question", "down", this);
     });
 
     $("a[data-name='voteup_answer']").click(function () {
-        var id = $(this).attr("value");
-
-        if (!checkVotePrivilege("/qa-system/check/voteup/answer/" + id)) {
-            return;
-        }
-
-        vote("/qa-system/vote/answer/" + id + "/up", this);
+        voteLinkClicked("answer", "up", this);
     });
 
     $("a[data-name='votedown_answer']").click(function () {
-        var id = $(this).attr("value");
-
-        if (!checkVotePrivilege("/qa-system/check/votedown/answer/" + id)) {
-            return;
-        }
-
-        vote("/qa-system/vote/answer/" + id + "/down", this);
+        voteLinkClicked("answer", "down", this);
     });
 });

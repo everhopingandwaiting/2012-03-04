@@ -2,21 +2,25 @@ package qa.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import qa.domain.QaUser;
-import qa.domain.Question;
 import qa.domain.Words;
-import qa.service.*;
+import qa.service.PrivilegeCheckingResult;
+import qa.service.PrivilegeCheckingService;
+import qa.service.UserService;
+import qa.service.WordsService;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping(value = "/check",
-        method = RequestMethod.POST,
+@RequestMapping(method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class CheckingPrivilegeController {
-    @Autowired
-    private QuestionService questionService;
+    private static final String UP = "up";
+    private static final String DOWN = "down";
 
     @Autowired
     private UserService userService;
@@ -27,19 +31,16 @@ public class CheckingPrivilegeController {
     @Autowired
     private WordsService wordsService;
 
-    @RequestMapping(value = "voteup/{question|answer}/{id}")
-    public PrivilegeCheckingResult checkVoteup(@PathVariable("id") int id, HttpServletRequest request) {
+    @RequestMapping(value = "/check/vote/{question|answer}/{id}/{direction:up|down}")
+    public PrivilegeCheckingResult checkVote(@PathVariable("id") int id,
+                                             @PathVariable("direction") String direction,
+                                             HttpServletRequest request) {
         Words words = wordsService.find(id);
         QaUser user = userService.find(request.getRemoteUser());
 
-        return privilegeService.canVoteup(user, words);
+        return direction.equals(UP) ?
+                privilegeService.canVoteup(user, words) :
+                privilegeService.canVotedown(user, words);
     }
 
-    @RequestMapping(value = "votedown/{question|answer}/{id}")
-    public PrivilegeCheckingResult checkVotedown(@PathVariable("id") int id, HttpServletRequest request) {
-        Words words = wordsService.find(id);
-        QaUser user = userService.find(request.getRemoteUser());
-
-        return privilegeService.canVotedown(user, words);
-    }
 }
