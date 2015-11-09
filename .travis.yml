@@ -3,3 +3,8 @@ before_install:
   - chmod +x gradlew
 jdk:
   - oraclejdk8
+
+before_install:
+  - pip install codecov
+after_success:
+  - codecov
