@@ -4,9 +4,16 @@ buildscript {
     }
 
     dependencies {
+        classpath 'net.saliman:gradle-cobertura-plugin:2.0.0' // cobertura plugin
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
         classpath('org.akhikhl.gretty:gretty:+')
     }
 }
+
+apply plugin: 'cobertura'
+apply plugin: 'com.github.kt3k.coveralls'
+
+cobertura.coverageFormats = ['html', 'xml'] // coveralls plugin depends on xml format report
 
 apply plugin: 'java'
 apply plugin: 'war'
