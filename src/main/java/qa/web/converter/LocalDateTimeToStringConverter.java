@@ -15,19 +15,23 @@ public class LocalDateTimeToStringConverter implements Converter<LocalDateTime, 
 
         Period period = Period.between(dateTime.toLocalDate(), now.toLocalDate());
 
-        if(duration.toMinutes() < 1) {
+        if (duration.toMinutes() < 1) {
             return String.format("%s secs ago", duration.getSeconds());
         }
 
-        if(duration.toHours() < 1) {
+        if (duration.toHours() < 1) {
             return String.format("%s mins ago", duration.toMinutes());
         }
 
-        if(period.getYears() > 0) {
+        if (duration.toDays() < 1) {
+            return String.format("%s hrs ago", duration.toHours());
+        }
+
+        if (period.getYears() > 0) {
             return DateTimeFormatter.ISO_LOCAL_DATE.format(dateTime);
         }
 
-        if(period.getMonths() > 0) {
+        if (period.getMonths() > 0) {
             return String.format("%s months ago", period.getMonths());
         }
 
