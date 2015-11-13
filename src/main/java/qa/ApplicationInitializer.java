@@ -11,7 +11,7 @@ import javax.servlet.Filter;
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{MongoClientOptions.class, ServiceConfiguration.class, WebSecurityConfiguration.class};
+        return new Class<?>[]{MongoClientOptions.class,DaoConfiguration.class, ServiceConfiguration.class, WebSecurityConfiguration.class};
     }
 
     @Override
