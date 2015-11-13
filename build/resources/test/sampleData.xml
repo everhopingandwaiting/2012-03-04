@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+    <users id="1" name="zhangsan"
+           password="2e11c1ff18056f8ef32c88b5eec922a2dae2cef384d891bba69ce73830be9d90806863dc19117b13"/>
+    <words type="question" id="1" content="content1" whencreated="2015-10-30 13:30:25" user_id="1" points="0"/>
+    <questions id="1" title="title1" viewcount="1"/>
+
+</dataset>

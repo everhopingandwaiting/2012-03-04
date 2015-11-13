@@ -1,5 +1,7 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -10,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "QUESTIONS")
 @DiscriminatorValue("QUESTION")
+@Document
 public class Question extends Words implements Serializable {
     @Size(min = 10, message = "{question.add.title.size}")
     @Column(nullable = false)

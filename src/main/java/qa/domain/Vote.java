@@ -1,10 +1,13 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "VOTES")
+@Document
 public class Vote implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

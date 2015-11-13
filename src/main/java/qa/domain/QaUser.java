@@ -1,6 +1,10 @@
 package qa.domain;
 
+import org.springframework.data.annotation.*;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
+import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Set;
@@ -8,9 +12,11 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "USERS")
+@Document
 public class QaUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @org.springframework.data.annotation.Id
     private int id;
 
     @Size(min = 6, message = "{user.add.name.size}")

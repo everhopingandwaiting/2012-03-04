@@ -1,0 +1,57 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="../../css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}"
+          rel="stylesheet"
+          type="text/css"/>
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid" style="margin-right: 15px;">
+            <a class="navbar-brand" href="questions.html" th:href="@{/questions}">QA-SYSTEM</a>
+
+            <p class="navbar-text navbar-right">
+                <a href="#" class="navbar-link" sec:authorize="isAuthenticated()"
+                   th:text="${#authentication.name}">User</a>
+            </p>
+
+            <p class="navbar-text navbar-right">
+                <a href="#" th:href="@{/user/logout}" class="navbar-link" sec:authorize="isAuthenticated()">Sign Out</a>
+            </p>
+
+            <p class="navbar-text navbar-right">
+                <a href="#" class="navbar-link" th:href="@{/user/login}" sec:authorize="isAnonymous()">Sign In</a>
+            </p>
+
+            <p class="navbar-text navbar-right">
+                <a href="#" class="navbar-link" th:href="@{/user/register}" sec:authorize="isAnonymous()">Sign Up</a>
+            </p>
+
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="toolbar">
+    <div class="row">
+        <form class="form-inline" method="get">
+            <button formaction="askquestion.html" th:formaction="@{/question/ask}" class="btn btn-default pull-right" style="margin-left: 5px;">Ask Question</button>
+            <button formaction="tags.html" th:formaction="@{/tags}" class="btn btn-default pull-right" style="margin-left: 5px;">Tags</button>
+            <button formaction="users.html" th:formaction="@{/users}" class="btn btn-default pull-right" style="margin-left: 5px;">Users</button>
+        </form>
+    </div>
+</div>
+
+<div th:fragment="scripts">
+    <script src="../../js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script src="../../js/qa.js" th:src="@{/js/qa.js}"></script>
+</div>
+</body>
+</html>

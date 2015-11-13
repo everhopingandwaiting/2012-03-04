@@ -3,17 +3,14 @@ package qa;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
-import qa.config.DaoConfiguration;
-import qa.config.ServiceConfiguration;
-import qa.config.WebConfiguration;
-import qa.config.WebSecurityConfiguration;
+import qa.config.*;
 
 import javax.servlet.Filter;
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{DaoConfiguration.class, ServiceConfiguration.class, WebSecurityConfiguration.class};
+        return new Class<?>[]{DaoConfiguration.class, ServiceConfiguration.class, WebSecurityConfiguration.class, MongoDbDaoConfiguration.class};
     }
 
     @Override

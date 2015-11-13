@@ -1,11 +1,14 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "ANSWERS")
 @DiscriminatorValue("ANSWER")
+@Document
 public class Answer extends Words implements Serializable {
     @Column(nullable = false)
     private boolean accepted;

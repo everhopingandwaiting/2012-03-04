@@ -82,6 +82,7 @@ public class DaoConfiguration {
                 .build();
     }
 
+
     @Bean
     public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
         return new HibernateTransactionManager(sessionFactory);

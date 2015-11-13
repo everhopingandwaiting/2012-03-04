@@ -1,0 +1,61 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html lang="zh-CN"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Registration</title>
+    <link href="../../../css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}" rel="stylesheet"/>
+</head>
+<body>
+<div th:include="fragments :: navbar"></div>
+<div class="container-fluid" style="margin: 0 10px;">
+    <div th:include="fragments :: toolbar"></div>
+    <div class="row" style="font-size: x-large; border-bottom: 1px solid lightgray;">
+        Please Register
+    </div>
+    <div class="row" style="margin-top: 20px;">
+        <form class="form-horizontal col-md-offset-3" method="post"
+              action="../questions.html" th:action="@{/user/register}"
+              th:object="${user}">
+            <div class="form-group" th:if="${#fields.hasErrors('*')}">
+                <li class="text-danger" th:each="error : ${#fields.errors('*')}" th:text="${error}">Incorrect Input</li>
+            </div>
+
+            <div th:class="${#fields.hasErrors('name')} ? 'form-group has-error' : 'form-group'">
+                <label th:for="${#ids.next('name')}" class="col-md-2 control-label">Username</label>
+
+                <div class="col-md-4">
+                    <input type="text" th:field="*{name}" class="form-control"/>
+                </div>
+            </div>
+
+            <div th:class="${#fields.hasErrors('password')} ? 'form-group has-error' : 'form-group'">
+                <label th:for="${#ids.next('password')}" class="col-md-2 control-label">Password</label>
+
+                <div class="col-md-4">
+                    <input type="password" th:field="*{password}" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">Confirm</label>
+
+                <div class="col-md-4">
+                    <input type="password" name="confirm" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-4">
+                    <button type="submit" class="btn btn-default">Sign Up</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

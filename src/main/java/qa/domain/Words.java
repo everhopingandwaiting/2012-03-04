@@ -1,6 +1,7 @@
 package qa.domain;
 
 import org.hibernate.annotations.Type;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -12,9 +13,11 @@ import java.util.Set;
 @Table(name = "WORDS")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TYPE")
+@Document
 public abstract class Words {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @org.springframework.data.annotation.Id
     protected int id;
 
     @Type(type = "org.hibernate.type.LocalDateTimeType")
