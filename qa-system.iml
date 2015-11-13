@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id="qa-system" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$" external.system.id="GRADLE" external.system.module.group="" external.system.module.version="1.0.RELEASE" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/qa/config/DaoConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/qa/config/MongoDbDaoConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/qa/config/ServiceConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/qa/config/WebConfiguration.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/qa/config/WebSecurityConfiguration.java</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="sessionFactory" value="f2f47d56-2fc8-4ded-8887-7fa04427d5c3" />
+        </datasource-map>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
     <facet type="web" name="Web Gradle : qa-system-1.0.RELEASE.war">
       <configuration>
         <webroots>

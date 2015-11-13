@@ -1,5 +1,6 @@
 package qa;
 
+import com.mongodb.MongoClientOptions;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -10,7 +11,7 @@ import javax.servlet.Filter;
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[]{DaoConfiguration.class, ServiceConfiguration.class, WebSecurityConfiguration.class, MongoDbDaoConfiguration.class};
+        return new Class<?>[]{MongoClientOptions.class, ServiceConfiguration.class, WebSecurityConfiguration.class};
     }
 
     @Override

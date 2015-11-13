@@ -1,5 +1,6 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -14,7 +15,7 @@ import java.util.Set;
 @DiscriminatorValue("QUESTION")
 @Document
 public class Question extends Words implements Serializable {
-    @Size(min = 10, message = "{question.add.title.size}")
+    @Size(min = 5, message = "{question.add.title.size}")
     @Column(nullable = false)
     private String title;
 
@@ -23,11 +24,14 @@ public class Question extends Words implements Serializable {
     @JoinTable(name = "QUESTIONS_TAGS",
             joinColumns = @JoinColumn(name = "QUESTION_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "TAG_ID", nullable = false))
+    @DBRef
+
     private Set<Tag> tags;
 
     @OneToMany(fetch = FetchType.EAGER,
             cascade = CascadeType.MERGE,
             mappedBy = "question")
+    @DBRef
     private Set<Answer> answers;
 
     @Column(nullable = false)

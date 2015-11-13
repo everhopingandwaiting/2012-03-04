@@ -56,7 +56,7 @@ public class DaoConfiguration {
         return new LocalSessionFactoryBuilder(dataSource)
                 .scanPackages("qa.domain")
                 .setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
-                .setProperty("hibernate.hbm2ddl.auto", "update")
+                .setProperty("hibernate.hbm2ddl.auto", "create-drop")
                 .setProperty("hibernate.show_sql", "true")
                 .buildSessionFactory();
     }

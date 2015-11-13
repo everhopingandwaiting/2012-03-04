@@ -1,5 +1,6 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -15,10 +16,12 @@ public class Vote implements Serializable {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "USER_ID", nullable = false)
+    @DBRef
     private QaUser whoVoted;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "WORDS_ID", nullable = false)
+    @DBRef
     private Words words;
 
     private boolean upVoted;

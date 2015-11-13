@@ -1,6 +1,7 @@
 package qa.domain;
 
 import org.springframework.data.annotation.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -19,15 +20,17 @@ public class QaUser implements Serializable {
     @org.springframework.data.annotation.Id
     private int id;
 
-    @Size(min = 6, message = "{user.add.name.size}")
+    @Size(min = 3, message = "{user.add.name.size}")
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Size(min = 8, message = "{user.add.password.size}")
+    @Size(min = 3, message = "{user.add.password.size}")
     @Column(nullable = false)
+
     private String password;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "whoCreated")
+    @DBRef
     private Set<Words> words;
 
     public int getId() {

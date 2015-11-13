@@ -1,5 +1,6 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Tag implements Serializable {
     @JoinTable(name = "QUESTIONS_TAGS",
             joinColumns = @JoinColumn(name = "TAG_ID", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "QUESTION_ID", nullable = false))
+    @DBRef
     public Set<Question> questions;
 
     public void setId(int id) {

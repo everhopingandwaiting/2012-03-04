@@ -1,5 +1,6 @@
 package qa.domain;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Answer extends Words implements Serializable {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "QUESTION_ID", nullable = false)
+    @DBRef
     private Words question;
 
     public Answer() {

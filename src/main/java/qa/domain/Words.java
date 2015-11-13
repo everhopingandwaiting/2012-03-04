@@ -1,6 +1,7 @@
 package qa.domain;
 
 import org.hibernate.annotations.Type;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public abstract class Words {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
+    @DBRef
     protected QaUser whoCreated;
 
     @Column(nullable = false)
