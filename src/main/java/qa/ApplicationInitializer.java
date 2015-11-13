@@ -10,6 +10,9 @@ import qa.config.WebSecurityConfiguration;
 
 import javax.servlet.Filter;
 
+/**
+ * @author """
+ */
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
