@@ -56,8 +56,9 @@ public class MongoDbDaoConfiguration  extends AbstractMongoConfiguration{
     }
 
     @Override
+    @Bean
     protected String getDatabaseName() {
-        return "qa-system";
+        return "qadb";
     }
 
     @PreDestroy
@@ -66,38 +67,40 @@ public class MongoDbDaoConfiguration  extends AbstractMongoConfiguration{
     }
 
     @Override
+    @Bean
     public Mongo mongo() throws Exception {
+//
         return new MongoClient(singletonList(new ServerAddress("222.30.64.156", 27017)),
-                singletonList(MongoCredential.createCredential("j.yao", "qa-system", "eb92d7045bdc1059bb77303b9089bb0f".toCharArray())));
+                singletonList(MongoCredential.createCredential("test", "qadb", "a6de521abefc2fed4f5876855a3484f5".toCharArray())));
+    }
+// "pwd" : "a6de521abefc2fed4f5876855a3484f5"
+        @Bean
+
+    public MongoClient mongoClient(MongoClientOptions clientOptions) {
+        List<MongoCredential> credentials = Arrays.asList(MongoCredential.createCredential(
+                "test", "qadb", "a6de521abefc2fed4f5876855a3484f5".toCharArray()
+        ));
+        List<ServerAddress> serverAddresses = Arrays.asList(new ServerAddress("222.30.64.156", 27017));
+        return new MongoClient(serverAddresses, credentials, clientOptions);
     }
 
-    //    @Bean
-//
-//    public MongoClient mongoClient(MongoClientOptions clientOptions) {
-//        List<MongoCredential> credentials = Arrays.asList(MongoCredential.createCredential(
-//                "j.yao", "qa-system", "eb92d7045bdc1059bb77303b9089bb0f".toCharArray()
-//        ));
-//        List<ServerAddress> serverAddresses = Arrays.asList(new ServerAddress("222.30.64.156", 27017));
-//        return new MongoClient(serverAddresses, credentials, clientOptions);
-//    }
+    @Bean
+    public MongoClientOptions.Builder builder() {
+        return  MongoClientOptions.builder()
+               .            alwaysUseMBeans(true)
+                .connectionsPerHost(20)
+                .connectTimeout(60 * 60)
+                .description("welcome to  here!")
+                .socketFactory(SocketFactory.getDefault())
+                .socketKeepAlive(true)
+                .sslEnabled(true)
+                .writeConcern(WriteConcern.SAFE);
+    }
 
-//    @Bean
-//    public MongoClientOptions.Builder builder() {
-//        return  MongoClientOptions.builder()
-//               .            alwaysUseMBeans(true)
-//                .connectionsPerHost(20)
-//                .connectTimeout(60 * 60)
-//                .description("welcome to  here!")
-//                .socketFactory(SocketFactory.getDefault())
-//                .socketKeepAlive(true)
-//                .sslEnabled(true)
-//                .writeConcern(WriteConcern.SAFE);
-//    }
-
-//    @Bean
-//    public MongoClientOptions mongoClientOptions(MongoClientOptions.Builder builder) {
-//        return builder.build();
-//    }
+    @Bean
+    public MongoClientOptions mongoClientOptions(MongoClientOptions.Builder builder) {
+        return builder.build();
+    }
 //    @Override
 //    @Bean
 //    public Mongo mongo() throws Exception {
@@ -118,12 +121,14 @@ public class MongoDbDaoConfiguration  extends AbstractMongoConfiguration{
     public MongoDbFactory mongoDbFactory() throws Exception {
         return super.mongoDbFactory();
     }
-//    @Override
-//    protected String getMappingBasePackage() {
-//        return "qa.domain";
-//    }
+    @Override
+    @Bean
+    protected String getMappingBasePackage() {
+        return "qa.domain";
+    }
 
     @Override
+    @Bean
     protected UserCredentials getUserCredentials() {
         return new UserCredentials("j.yao", "eb92d7045bdc1059bb77303b9089bb0f");
     }
