@@ -24,6 +24,28 @@ public class QaUser implements Serializable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "whoCreated")
     private Set<Words> words;
 
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinTable(name = "USERS_TAGS",
+            joinColumns = @JoinColumn(name = "USER_ID", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "TAG_ID", nullable = false))
+    private Set<Tag> tags;
+
+    public QaUser(String name) {
+        this.name = name;
+    }
+
+    public QaUser() {
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
     public int getId() {
         return id;
     }
@@ -56,6 +78,7 @@ public class QaUser implements Serializable {
         return words;
     }
 
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof QaUser) {
@@ -75,4 +98,8 @@ public class QaUser implements Serializable {
     public int getReputation() {
         return words.stream().mapToInt(Words::getPoints).sum();
     }
+
+//    public Set<Tag> getTags() {
+//        return words.stream().filter().collect(Collectors.toSet());
+//    }
 }

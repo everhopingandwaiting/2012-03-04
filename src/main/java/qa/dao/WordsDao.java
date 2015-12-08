@@ -33,4 +33,10 @@ public class WordsDao {
     public <T extends Words> List<T> findAll(Class<T> wordsClass) {
         return (List<T>) template.find("FROM " + wordsClass.getSimpleName());
     }
+
+    public <T extends Words> List<T> findByName(Class<T> wordsClass,String name) {
+        return (List<T>) template.find("FROM" + wordsClass.getSimpleName() + " where name=?", name);
+    }
+
+
 }

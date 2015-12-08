@@ -5,8 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 import qa.domain.QaUser;
 
 import java.util.List;
-import java.util.Optional;
 
+/**
+ * @author john
+ */
 @Transactional
 public class UserDao {
     private HibernateTemplate template;
@@ -24,5 +26,28 @@ public class UserDao {
     public QaUser persist(QaUser user) {
         template.persist(user);
         return user;
+
     }
+
+    public List<QaUser> findAll() {
+        return (List<QaUser>) template.find("FROM QaUser ");
+    }
+
+    public List<QaUser> findLikeXXX(QaUser user) {
+        String sql = "SELECT * FROM USERS WHERE name LIKE ?1";
+
+
+        return template.execute(session -> {
+            return session.createSQLQuery(sql).addEntity(QaUser.class).setString("1", "%" + user.getName() +
+                    "%").list();
+        });
+    }
+
+    public QaUser findById(int id) {
+        return (QaUser) template.find("FROM QaUser WHERE id=?",id).get(0);
+    }
+
 }
+
+
+

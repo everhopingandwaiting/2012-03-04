@@ -30,4 +30,9 @@ public class WordsService {
     public <T extends Words> List<T> findAll(Class<T> wordsClass) {
         return wordsDao.findAll(wordsClass);
     }
+    //
+
+    public <T extends Words> List<T> findByName(Class<T> wordsClass,String name) {
+        return wordsDao.findByName(wordsClass,name);
+    }
 }

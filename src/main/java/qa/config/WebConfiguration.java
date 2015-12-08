@@ -18,6 +18,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import qa.web.converter.LocalDateTimeToStringConverter;
 import qa.web.converter.TagsFormatter;
+import qa.web.converter.UsersFormatter;
 
 @Configuration
 @EnableWebMvc
@@ -72,5 +73,6 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new LocalDateTimeToStringConverter());
         registry.addFormatter(new TagsFormatter());
+        registry.addFormatter(new UsersFormatter());
     }
 }

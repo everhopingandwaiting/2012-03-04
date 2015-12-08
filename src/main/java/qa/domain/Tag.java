@@ -28,6 +28,21 @@ public class Tag implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "QUESTION_ID", nullable = false))
     public Set<Question> questions;
 
+    @ManyToMany(fetch = FetchType.EAGER,
+            cascade = CascadeType.MERGE)
+    @JoinTable(name = "USERS_TAGS",
+            joinColumns = @JoinColumn(name = "TAG_ID", nullable = false),
+            inverseJoinColumns = @JoinColumn(name = "USER_ID", nullable = false))
+    private Set<QaUser> qaUsers;
+
+    public Set<QaUser> getQaUsers() {
+        return qaUsers;
+    }
+
+    public void setQaUsers(Set<QaUser> qaUsers) {
+        this.qaUsers = qaUsers;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

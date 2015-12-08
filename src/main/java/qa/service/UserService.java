@@ -50,4 +50,17 @@ public class UserService implements UserDetailsService {
     public QaUser find(String username) {
         return userDao.findByName(username);
     }
+
+    public List<QaUser> findAll() {
+        return userDao.findAll();
+    }
+
+    public List<QaUser> findLikeXXX(QaUser user) {
+        return userDao.findLikeXXX(user);
+    }
+
+    public QaUser find(int id) {
+        return userDao.findById(id);
+    }
+
 }

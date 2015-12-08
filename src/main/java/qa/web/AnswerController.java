@@ -18,6 +18,13 @@ public class AnswerController {
     @Autowired
     private WordsService wordsService;
 
+    /**
+     *
+     * @param id
+     * @param content
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/answer/question/{id}", method = RequestMethod.POST)
     public String postAnswer(@PathVariable("id") int id,
                              @RequestParam("content") String content,
